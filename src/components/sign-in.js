@@ -1,40 +1,47 @@
+import {useState} from 'react';
 import '../style.css';
 import 'bootstrap/dist/css/bootstrap.css';
 
 const Signin = (props) => {
+    const [passType, setPassType] = useState("password");
+    const [passInput, setPassInput] = useState("");
+    const handlePassChange = (event) => {
+        setPassInput(event.target.value);
+    }
+    const togglePassword = () => {
+        if(passType === "password"){
+            setPassType("text");
+            return
+        }
+        setPassType("password");
+
+    }
+
     return(
-        <div class="box sign-up-box">
-        <div class="items" style={{"text-align": "center"}}><h3>Sign-in</h3></div>
-        <div class="items">
+        <div className="box sign-up-box">
+        <div className="items" style={{"text-align": "center"}}><h3>Sign-in</h3></div>
+        <div className="items">
             <label htmlFor="name">Username</label>
             <input type="text" id="name" className='form-control'/>
         </div>
 
-        <div class="items">
+        <div className="items">
             <label htmlFor="name">Password</label>
-            <input type="password" id="name" className='form-control'/>
-            <div class="form-check">
-                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" onSelect={""}/>
-                <label class="form-check-label" for="flexCheckDefault">show password</label>   
+            <input type={passType} onChange={handlePassChange} value={passInput} id="password" className='form-control'/>
+            <div className="form-check" >
+                <input className="form-check-input" type="checkbox" value="" id="flexCheckDefault" onClick={togglePassword}/>
+                <label className="form-check-label" htmlFor="flexCheckDefault">show password</label>   
             </div>
         </div>
 
-        <div class="items"><button class="btn btn-primary btn-lg">Sign In</button></div>
-        <div class="items">
-            <button class="btn" onClick={() => props.handleClick("signup")}><span style={{"color": "green"}}>No Account ? Sign-up</span></button>
+        <div className="items"><button className="btn btn-primary btn-lg">Sign In</button></div>
+        <div className="items">
+            <button className="btn" onClick={() => props.handleClick("signup")} id="nasu">No Account ? Sign-up</button>
         </div>
     </div>
     );
 }
 
 
-// function showPassword(){
-//     var x = document.getElementById("password");
-//     if (x.type === "password") {
-//         x.type = "text";
-//     } else {
-//         x.type = "password";
-//     }
-// }
 
 export default Signin;
